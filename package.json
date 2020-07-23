@@ -1,0 +1,11 @@
+{
+  "name": "botfive",
+  "version": "1.0.0",
+  "description": "bot telegram",
+  "main": "botfive.js",
+  "scripts": {
+    "start": "node botfive.js"
+  },
+  "author": "WGalisa",
+  "license": "ISC"
+}
