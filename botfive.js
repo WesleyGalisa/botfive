@@ -1,4 +1,8 @@
-
+var http = require ("http");
+var porta = process.env.PORT || 8080;
+http.createServer(function(req,res){
+	res.end("Funcionando")
+}).listen(porta)
 
 
 const telegramBot = require(`node-telegram-bot-api`);
