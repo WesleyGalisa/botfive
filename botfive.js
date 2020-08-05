@@ -5,6 +5,8 @@ http.createServer(function(req,res){
 }).listen(porta)
 
 
+
+
 const telegramBot = require(`node-telegram-bot-api`);
 const { Z_BLOCK } = require("zlib");
 const token = '1008570379:AAHrGrcDLJTNFBWwO3hQPUUSND4oWwAz67E';
@@ -17,13 +19,9 @@ var textobv =
     
     'Por gentileza preencher o formulário: https://docs.google.com/forms/d/e/1FAIpQLScx3ugoMjZpgwzLwBQhyp-aBXdoufX5VSsJ3RkeK4ANTF3KFw/viewform\n\n'+
     
-    'CLUBE DO CURSO:\n\n'+
-    
-    'Por favor me adicionar no lol o nick é SrLuciffer e me mandar uma mensagem informando que é aluno e Caso queira entrar para o clube do curso.\n\n'+
-    
     'ACESSO AO DISCORD:\n\n'+
     
-    'Para ter acesso ao discord por favor me marcar no servidor do fiv5 na parte de bate papo @Rivenzada e informar o e-mail cadastrado no curso que estarei colocando o cargo como aluno. P.s: Caso não tenha o servidor no discord aqui está o link: https://discordapp.com/invite/fiv5\n\n'+
+    'Para ter acesso ao discord por favor me marcar no servidor do fiv5 na parte de bate papo @Rivenanimal (marcar no DISCORD) e informar o e-mail cadastrado no curso que estarei colocando o cargo como aluno. P.s: Caso não tenha o servidor no discord aqui está o link: https://discordapp.com/invite/fiv5\n\n'+
     
     'ACESSO AS AULAS AO VIVO:\n\n'+
     
@@ -41,38 +39,22 @@ var textobv =
  'até o incone com uma "barra" [/] do lado chat, no canto inferior direito';
 
 botfive.on( 'message', ( msg ) => console.log( 'msg', msg ));
-botfive.on('message', (msg)=>{
 
-    var dateTime = new Date;
-    var data = dateTime.getHours();
-    var minutos = dateTime.getMinutes();
-    var horario = data+":"+minutos;
-    var anuncio = "19:50"
-    console.log(data+":"+minutos);
-      
-    if(horario == anuncio){
-        botfive.sendMessage(msg.chat.id, "Olá Membros do grupo, em 10 mints iniciaremos a live do dia\nFiquem atentos para o link\nPara saber qual é a rota do dia\nUse o meu comando aulas\nBons Estudos Invocador!!!")
-    } else if(horario == "19:58"){
-        botfive.sendMessage(msg.chat.id, "Olá Membros do grupo, em 02 mints iniciaremos a live do dia\nFiquem atentos para o link\nPara saber qual é a rota do dia\nUse o meu comando aulas\nBons Estudos Invocador!!!")
-    }
-
-
-})
-botfive.onText(/\/regras/, (msg, match)=>{
+botfive.onText(/^\/regras/, (msg, match)=>{
 	
 	var chatId = msg.chat.id;
-	var usrname = msg.from.username;
-	var texto = "Olá @"+usrname+'\n'+
+	var usrname = msg.from.first_name;
+	var texto = "Olá "+usrname+'\n'+
 		"Estas são nossas regras:\n"+
 		"Não pode enviar link de outros grupos\n"+
 		"Não pode pornografia\n"+
 		"Não pode ser Tóxico, somos uma família\n"+
 		"Dúvidas? Use meu comando e converse com um Professor";
-    botfive.sendMessage(chatId,texto);
+    botfive.sendMessage(chatId,texto,{reply_to_message_id:msg.message_id});
 });
 
 
-    botfive.onText(/\/start/i, (msg,match)=>{
+    botfive.onText(/^\/start/i, (msg,match)=>{
         if(msg.chat.type == 'private'){
             botfive.sendMessage(msg.chat.id, textobv,{reply_to_message_id:msg.message_id});
         } else {
@@ -81,36 +63,39 @@ botfive.onText(/\/regras/, (msg, match)=>{
         
     })
 
-    botfive.onText(/\/professores/, (msg)=>{
+    botfive.onText(/^\/professores/, (msg)=>{
+       
         botfive.sendMessage(msg.chat.id, "Qual rota você deseja?\n\n/adc\n\n\n/sup\n\n\n/jg\n\n\n/mid\n\n\n/top",{reply_to_message_id:msg.message_id});
+       
+        
     });
 
-    botfive.onText(/\/adc/, (msg)=>{
+    botfive.onText(/^\/adc/, (msg)=>{
         botfive.sendMessage(msg.chat.id, "Nosso Professor de ADC é:\n\nEthierre Potick\n\nVocê pode falar com ele clicando aqui:\n@Potick",{reply_to_message_id:msg.message_id})
     });
 
     
-    botfive.onText(/\/jg/, (msg)=>{
+    botfive.onText(/^\/jg/, (msg)=>{
         botfive.sendMessage(msg.chat.id, "Nosso Professor de Jungle é:\n\nRiven\n\nVocê pode falar com ele clicando aqui:\n@Rivenzada",{reply_to_message_id:msg.message_id})
     });
 
-    botfive.onText(/\/top/, (msg)=>{
+    botfive.onText(/^\/top/, (msg)=>{
         botfive.sendMessage(msg.chat.id, "Nosso Professor de Top é:\n\nHero\n\nVocê pode falar com ele clicando aqui:\n@Heroeris",{reply_to_message_id:msg.message_id})
     });
   
-    botfive.onText(/\/sup/, (msg)=>{
+    botfive.onText(/^\/sup/, (msg)=>{
         botfive.sendMessage(msg.chat.id, "Nosso Professor de Sup é:\n\nFullKira\n\nVocê pode falar com ele clicando aqui:\n@FullKira",{reply_to_message_id:msg.message_id})
     });
 
-    botfive.onText(/\/mid/, (msg)=>{
+    botfive.onText(/^\/mid/, (msg)=>{
         botfive.sendMessage(msg.chat.id, "Nosso Professor de Mid é:\n\nParaíso\n\nVocê pode falar com ele clicando aqui:\n@Paraiso12",{reply_to_message_id:msg.message_id})
     });
 
-    botfive.onText(/\/discord/, (msg)=>{
+    botfive.onText(/^\/discord/, (msg)=>{
         botfive.sendMessage(msg.chat.id, "Nosso link do discord:\n\nhttps://discordapp.com/invite/fiv5", {reply_to_message_id:msg.message_id})
     });
 
-    botfive.onText(/\/aulas/, (msg)=>{
+    botfive.onText(/^\/aulas/, (msg)=>{
         botfive.sendMessage(msg.chat.id, 
             'CRONOGRAMA DE AULAS:\n\n'+ 
             
@@ -121,11 +106,11 @@ botfive.onText(/\/regras/, (msg, match)=>{
             'Sexta: Aula de top às 20:00 (Hero)\n\n\n', {reply_to_message_id:msg.message_id})
     });
 
-    botfive.onText(/\/curso/, (msg)=>{
+    botfive.onText(/^\/estudo/, (msg)=>{
         botfive.sendMessage(msg.chat.id, "O link do curso é este:\n\nhttps://cursodofiv5.klickmembers.com.br/login?redirect=%2F" , {reply_to_message_id:msg.message_id})
     }); 
 
-    botfive.onText(/\/catapa/, (msg)=>{
+    botfive.onText(/^\/catapa/, (msg)=>{
 
         valor = calcular();
 
@@ -169,6 +154,39 @@ botfive.onText(/\/regras/, (msg, match)=>{
        }
     })
 
+    botfive.onText(/^\/coach/i, (msg)=>{
+        botfive.sendMessage(msg.chat.id, "Bom, se você quiser algum acompanhamento mais próximo, como aulas particulares ou analises, nossos professores agora fazem serviço de COACH\nFicou interessado INVOCADOR "+msg.from.first_name+"\nBasta Clicar Aqui:\n\n @coachmindsetchallenger\n\nVocê será  direcionado ao contato do organizador!", {reply_to_message_id:msg.message_id})
+
+
+    })
+
+    botfive.onText(/^\/dude/i, (msg)=>{
+        coach();
+        function coach(){ 
+            botfive.sendMessage(-1001413336987, "Nós também temos serviços de COACH\nPara mais informações digite o comando /coach")
+            setTimeout(coach2, 10800000)
+        }
+        function coach2(){ 
+            botfive.sendMessage(-1001413336987, "Nós também temos serviços de COACH\nPara mais informações digite o comando /coach")
+            setTimeout(coach, 10800000)
+        }
+       
+       
+    })
+
     botfive.on('new_chat_members', (msg)=>{
         botfive.sendMessage(msg.chat.id,"Olá "+msg.new_chat_member.first_name+" sou a CATAPA FIDADA, o bot da escola MINDSET CHALLENGER\n\nSeja muito bem vindo! \n\nPara Continuarmos, preciso que você fale comigo no privado \nclicando aqui: @fiv5_bot" );
     })
+
+   botfive.onText(/^\/dado/, (msg)=>{
+       rotas();
+       var texto;
+       function rotas(){
+           botfive.sendMessage(msg.chat.id, "deu certo, agora escreva a rota que você quer informações\n\n/midlane")
+           texto = msg.text;
+           return texto;
+       }
+       console.log(texto)
+
+       
+   })
